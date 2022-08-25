@@ -52,7 +52,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public'))) //to access the public folder. hello.js
 
-const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
+const secret = process.env.SECRET || 'thisshouldbeabettersecret!'; // production
 const store = MongoDBStore.create({ 
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,   // lazy session update
@@ -70,7 +70,7 @@ store.on("error", function(e) {
 const sessionConfig = {
     store,
     name: 'session',
-    secret,
+    secret, // production
     resave: false,
     saveUninitialized: true,
     cookie: {
