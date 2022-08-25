@@ -14,8 +14,8 @@ const ExpressError = require('./utils/ExpressError')
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user');
-//const dbUrl = 'mongodb://localhost:27017/yelp-camp'; //development
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';  //production
+// const dbUrl = 'mongodb://localhost:27017/yelp-camp'; //development
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';  //production mongo Atlas
 
 const MongoDBStore = require("connect-mongo");
 
@@ -53,9 +53,9 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public'))) //to access the public folder. hello.js
 
 const secret = process.env.SECRET || 'thisshouldbeabettersecret!';
-const store = MongoDBStore.create({
+const store = MongoDBStore.create({ 
     mongoUrl: dbUrl,
-    touchAfter: 24*60*60,
+    touchAfter: 24 * 60 * 60,   // lazy session update
     crypto: {
         secret
     },    
